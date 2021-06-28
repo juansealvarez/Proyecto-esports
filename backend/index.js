@@ -3,6 +3,7 @@ const session = require('express-session')
 const bodyParser = require('body-parser')
 const path = require('path')//trabajar con el views en otra ruta
 const app =express(); //objeto app ejecutando express
+const PORT = 3000;
 
 app.use(express.static(path.join(__dirname,'assets'))); //configurar archivos estaticos
 
