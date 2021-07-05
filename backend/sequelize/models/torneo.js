@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     idInscrito: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Torneo',
+    modelName: 'Torneos',
   });
   return Torneo;
 };
