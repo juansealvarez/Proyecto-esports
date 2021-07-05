@@ -4,7 +4,7 @@ const { query } = require("express");
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Torneo', {
+    await queryInterface.createTable('Torneos', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -66,7 +66,7 @@ module.exports = {
       }
     });
 
-    await queryInterface.addConstraint('Torneo',{
+    await queryInterface.addConstraint('Torneos',{
       type : 'FOREIGN KEY',
       fields : ['idEstado'],
       name : 'FK_Torneo_Estado',
@@ -75,7 +75,7 @@ module.exports = {
         field : 'id'
       }
     });
-    await queryInterface.addConstraint('Torneo',{
+    await queryInterface.addConstraint('Torneos',{
       type : 'FOREIGN KEY',
       fields : ['idTipo'],
       name : 'FK_Torneo_Tipo',
@@ -84,7 +84,7 @@ module.exports = {
         field : 'id'
       }
     });
-    await queryInterface.addConstraint('Torneo',{
+    await queryInterface.addConstraint('Torneos',{
       type : 'FOREIGN KEY',
       fields : ['idInscrito'],
       name : 'FK_Torneo_Inscrito',
@@ -95,6 +95,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Torneo');
+    await queryInterface.dropTable('Torneos');
   }
 };

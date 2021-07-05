@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="/css/menu_general.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="/css/header.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Train+One&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        <link href="/styles/bootstrap.css" rel="stylesheet" type="text/css" />
+        <script src="js/bootstrap.bundle.js"></script>
+    </head>
+
+    <body class="container">
+        <%- include('header') %>
+        <form action="/vista_organizador/edit" method="POST">
+            <input type="hidden" name="tn_id" value="<%= torneo.id %>">
+            <div>
+                <label class="form-label">Nombre</label>
+                <input value="<%= torneo.nombre %>" name="tn_nombre" type="text" class="form-control" />
+            </div>
+            <div>
+                <label class="form-label">Descripcion</label>
+                <input value="<%= torneo.descripcion %>" name="tn_descripcion" type="text" class="form-control" />
+            </div>
+            <div>
+                <label class="form-label">Fecha de inicio</label>
+                <input value="<%= torneo.fecha_inicio %>" name="tn_fecha_inicio" type="text" class="form-control" />
+            </div>
+            <div>
+                <label class="form-label">Fecha de fin</label>
+                <input value="<%= torneo.fecha_fin %>" name="tn_fecha_fin" type="text" class="form-control" />
+            </div>
+            <div>
+                <label class="form-label">Numero máximo de participantes</label>
+                <input value="<%= torneo.max_participantes %>" name="tn_max_participantes" type="number" class="form-control" />
+            </div>
+            <div>
+                <label class="form-label">Tipo de torneo</label>
+                <select id="select_tipo" name="tn_idTipo" class="form-select">
+                    <option value="-1">Seleccione un tipo</option>
+                    <% tipos.forEach((tip) =>{ %>
+                        <% if (tip.id == torneo.idTipo) { %>
+                            <option value="<%= tip.id %>" selected=true><%= tip.nombre %></option>
+                        <% }else{ %>
+                            <option value="<%= tip.id %>"><%= tip.nombre %></option>
+                        <% } %>
+                    <% }) %>
+                </select>
+            </div>
+            <div>
+                <label class="form-label">Numero de partidas por dia</label>
+                <input value="<%= torneo.nro_partidas_dia %>" name="tn_nro_partidas_dia" type="number" class="form-control" />
+            </div>
+            <div>
+                <div id="puntaje_resultado">Puntajes por resultado</div>
+                <div>
+                    <label class="form-label">Partida ganada</label>
+                    <input value="<%= torneo.part_ganada %>" name="tn_part_ganada" type="number" class="form-control" />
+                </div>
+                <div>
+                    <label class="form-label">Partida empatada</label>
+                    <input value="<%= torneo.part_empatada %>" name="tn_part_empatada" type="number" class="form-control" />
+                </div>
+                <div>
+                    <label class="form-label">Partida perdida</label>
+                    <input value="<%= torneo.part_perdida %>" name="tn_part_perdida" type="number" class="form-control" />
+                </div>
+            </div>
+            <input type="hidden" name="tn_nro_equipos_reg" type="number" class="form-control"  value="<%= torneo.nro_equipos_reg %>">
+            <input type="hidden" name="tn_max_equipos" type="number" class="form-control" value="<%= torneo.max_equipos %>">
+            <input type="hidden" name="tn_idEstado" type="number" class="form-control" value="<%= torneo.idEstado %>">
+            <input type="hidden" name="tn_idInscrito" type="number" class="form-control" value="<%= torneo.idInscrito %>">
+            <input type="hidden" name="tn_nro_participantes" type="number" class="form-control" value="<%= torneo.nro_participantes %>">
+            <div id="mensajes" class="mt-3">
+            </div>
+            <div class="modal-footer">
+                <a href="/vista_organizador" id="modal_but_cancelar" class="btn btn-success" type="button">
+                    Cancelar
+                </a>
+                <button id="modal_but_grabar" class="btn btn-success" type="submit">
+                    Grabar
+                </button>
+            </div>
+        </form>            
+    </body>
+</html>
