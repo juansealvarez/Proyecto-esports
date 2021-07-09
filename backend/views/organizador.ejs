@@ -13,6 +13,8 @@
         <%- include('header') %>
         <h2>Lista de Torneos</h1>
         <a href="/vista_organizador/add" id="but_agregar" class="btn btn-success mb-3" type="button">Crear nuevo torneo</a>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="js/paginacion.js"></script>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -24,7 +26,7 @@
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody id="data_torneos">
+            <tbody id="myTable">
                 <% torneos.forEach((tn) => { %>
                     <tr>
                         <td><%= tn.id %></td>
@@ -41,6 +43,7 @@
                 <% }) %>
             </tbody>
         </table>
+        <ul id="myPager"></ul>
         <a class="btn btn-success" href="/">Regresar</a>
     </body>
 </html>
