@@ -1,7 +1,7 @@
 const express = require('express') //importar express
 const session = require('express-session')
 const bodyParser = require('body-parser')
-const {getTorneos, createTorneo, deleteTorneo, getTorneo, updateTorneo} = require('./models/dao_torneos');
+const {getTorneos, createTorneo, deleteTorneo, getTorneo, updateTorneo, getTorneosFiltrados, getTorneosFiltradosNombre, getTorneosFiltradosEstado, getTorneosFiltradosInscrito} = require('./models/dao_torneos');
 const daoTipos = require('./models/dao_tipos');
 const daoEstados = require('./models/dao_estados');
 const daoInscrito = require('./models/dao_inscrito');
@@ -38,11 +38,51 @@ app.get('/vista_participante_lider', async (req, res)=>{
     })
 });
 
+app.post('/vista_participante_lider/filtrate/status', async (req, res)=>{
+    //obtener el nombre del campo de texto
+    const est = req.body.estado
+    estado=parseInt(est);
+    if (estado<=0 && estado>=4){
+        const listaTorneos = await getTorneosFiltradosEstado(estado);
+        res.render("participante_lider_filtro_estado",{
+            torneos : listaTorneos
+        })
+        console.log(torneos);
+    }else{
+        const listaTorneos = await getTorneos();
+        res.render("participante_lider",{
+            torneos : listaTorneos
+        })
+        console.log(torneos);
+    }
+
+});
+
+app.post('/vista_participante_lider/filtrate/signed_up', async (req, res)=>{
+    //obtener el nombre del campo de texto
+    const ins = req.body.inscrito
+    inscrito = parseInt(ins);
+    if (inscrito<=0 && inscrito>=3){
+        const listaTorneos = await getTorneosFiltradosInscrito(ins);
+        res.render("participante_lider_filtro_inscrito",{
+            torneos : listaTorneos
+        })
+        console.log(torneos);
+    }else{
+        const listaTorneos = await getTorneos();
+        res.render("participante_lider",{
+            torneos : listaTorneos
+        })
+    }
+    
+});
+
 app.get('/vista_espectador', async (req, res)=>{
-    const listaTorneos = await getTorneos();
+    const listaTorneos = await getTorneosFiltrados();
     res.render("espectador",{
         torneos : listaTorneos
     })
+    console.log(torneos);
 });
 
 app.get('/',(req, res)=>{
@@ -133,6 +173,25 @@ app.post('/vista_organizador/edit', async (req, res) => {
     };
     await updateTorneo(tn);
     res.redirect('/vista_organizador');
+});
+
+app.post('/vista_organizador/filtrate/', async (req, res)=>{
+    //obtener el nombre del campo de texto
+    const nomb = req.body.filtro_nombre
+    if (nomb!=""){
+        const listaTorneos = await getTorneosFiltradosNombre(nomb);
+        res.render("organizador_filtro_nombre",{
+            torneos : listaTorneos
+        })
+        console.log(torneos);
+    }else{
+        const listaTorneos = await getTorneos();
+        res.render("organizador",{
+            torneos : listaTorneos
+        })
+        console.log(torneos);        
+    }
+    
 });
 
 app.get('/vista_organizador/delete/:id', async (req,res)=>{

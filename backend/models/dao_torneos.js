@@ -38,6 +38,138 @@ const getTorneo = async (tnId) => {
     return tn;
 };
 
+const getTorneosFiltrados = async () =>{
+    //TODO: BD
+    const tns = await db.Torneos.findAll({
+        where: {
+            idEstado : 2
+        }
+    });
+    const torneos = [];
+    for (let tn of tns){
+        torneos.push({
+            id : tn.id,
+            nombre : tn.nombre,
+            fecha_inicio : tn.fecha_inicio,
+            fecha_fin : tn.fecha_fin,
+            nro_participantes : tn.nro_participantes,
+            descripcion : tn.descripcion,
+            max_participantes: tn.max_participantes,
+            nro_partidas_dia : tn.nro_partidas_dia,
+            part_ganada : tn.part_ganada,
+            part_empatada : tn.part_empatada,
+            part_perdida : tn.part_perdida,
+            nro_equipos_reg : tn.nro_equipos_reg,
+            max_equipos : tn.max_equipos,
+            
+            tipo : await tn.getTipo(),
+            estado : await tn.getEstado(),
+            inscrito : await tn.getInscrito()
+        })
+    };
+    console.log(torneos);
+    return torneos;
+};
+
+const getTorneosFiltradosNombre = async (nomb) =>{
+    //TODO: BD
+    const tns = await db.Torneos.findAll({
+        where: {
+            nombre : nomb
+        }
+    });
+    const torneos = [];
+    for (let tn of tns){
+        torneos.push({
+            id : tn.id,
+            nombre : tn.nombre,
+            fecha_inicio : tn.fecha_inicio,
+            fecha_fin : tn.fecha_fin,
+            nro_participantes : tn.nro_participantes,
+            descripcion : tn.descripcion,
+            max_participantes: tn.max_participantes,
+            nro_partidas_dia : tn.nro_partidas_dia,
+            part_ganada : tn.part_ganada,
+            part_empatada : tn.part_empatada,
+            part_perdida : tn.part_perdida,
+            nro_equipos_reg : tn.nro_equipos_reg,
+            max_equipos : tn.max_equipos,
+            
+            tipo : await tn.getTipo(),
+            estado : await tn.getEstado(),
+            inscrito : await tn.getInscrito()
+        })
+    };
+    console.log(torneos);
+    return torneos;
+};
+
+const getTorneosFiltradosEstado = async (est) =>{
+    //TODO: BD
+    const tns = await db.Torneos.findAll({
+        where: {
+            idEstado : est
+        }
+    });
+    const torneos = [];
+    for (let tn of tns){
+        torneos.push({
+            id : tn.id,
+            nombre : tn.nombre,
+            fecha_inicio : tn.fecha_inicio,
+            fecha_fin : tn.fecha_fin,
+            nro_participantes : tn.nro_participantes,
+            descripcion : tn.descripcion,
+            max_participantes: tn.max_participantes,
+            nro_partidas_dia : tn.nro_partidas_dia,
+            part_ganada : tn.part_ganada,
+            part_empatada : tn.part_empatada,
+            part_perdida : tn.part_perdida,
+            nro_equipos_reg : tn.nro_equipos_reg,
+            max_equipos : tn.max_equipos,
+            
+            tipo : await tn.getTipo(),
+            estado : await tn.getEstado(),
+            inscrito : await tn.getInscrito()
+        })
+    };
+    console.log(torneos);
+    return torneos;
+};
+
+const getTorneosFiltradosInscrito = async (ins) =>{
+    //TODO: BD
+    const tns = await db.Torneos.findAll({
+        where: {
+            idInscrito : ins
+        }
+    });
+    const torneos = [];
+    for (let tn of tns){
+        torneos.push({
+            id : tn.id,
+            nombre : tn.nombre,
+            fecha_inicio : tn.fecha_inicio,
+            fecha_fin : tn.fecha_fin,
+            nro_participantes : tn.nro_participantes,
+            descripcion : tn.descripcion,
+            max_participantes: tn.max_participantes,
+            nro_partidas_dia : tn.nro_partidas_dia,
+            part_ganada : tn.part_ganada,
+            part_empatada : tn.part_empatada,
+            part_perdida : tn.part_perdida,
+            nro_equipos_reg : tn.nro_equipos_reg,
+            max_equipos : tn.max_equipos,
+            
+            tipo : await tn.getTipo(),
+            estado : await tn.getEstado(),
+            inscrito : await tn.getInscrito()
+        })
+    };
+    console.log(torneos);
+    return torneos;
+};
+
 const createTorneo = async (tn) => {
     return await db.Torneos.create(tn);
 };
@@ -77,5 +209,9 @@ module.exports = {
     createTorneo : createTorneo,
     deleteTorneo : deleteTorneo,
     getTorneo : getTorneo,
-    updateTorneo : updateTorneo
+    updateTorneo : updateTorneo,
+    getTorneosFiltrados : getTorneosFiltrados,
+    getTorneosFiltradosNombre : getTorneosFiltradosNombre,
+    getTorneosFiltradosInscrito : getTorneosFiltradosInscrito,
+    getTorneosFiltradosEstado : getTorneosFiltradosEstado
 };
