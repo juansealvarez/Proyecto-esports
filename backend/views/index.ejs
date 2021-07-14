@@ -22,7 +22,8 @@
         </thead>
         <tbody>
           <% usuarios.forEach((user)=>{ %>
-            <tr>  
+            <%if(user.id!=1){%>
+              <tr>  
                 <td><%= user.id %></td>  
                 <td><%= user.user %></td>
                 <td><%= user.rol %></td>
@@ -31,8 +32,15 @@
                   <a href="/admin/edit/<%= user.id %>" class="btn btn-outline-info"><i class='bx bxs-edit'></i></a>
                   <a href="/admin/delete/<%= user.id %>" class="btn btn-outline-danger"><i class='bx bxs-trash-alt'></i></a>     
                 </td>           
-            
-              </tr>                                   
+              </tr> 
+            <% }else{%>
+              <tr>  
+                <td><%= user.id %></td>  
+                <td><%= user.user %></td>
+                <td><%= user.rol %></td>
+                <td><%= user.correo %></td>
+              </tr> 
+            <% } %> 
          <% }) %>
         </tbody>
       </table>

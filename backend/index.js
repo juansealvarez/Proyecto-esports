@@ -146,7 +146,7 @@ app.post('/registro', async (req, res) => {
     const usr = {
         user: req.body.user,
         correo: req.body.correo,
-        password: req.body.password,
+        password:passwordHash,
         rol: req.body.rol,
         equipo: parseInt(req.body.equipo)
         
