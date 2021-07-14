@@ -11,10 +11,11 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
         <script src="js/filtro_inscrito.js"></script>
         <script src="js/filtro_estado.js"></script>
+        <script src="js/paginacion_participante_lider.js"></script>
     </head>
 
     <body class="container">
-        <%- include('header') %>
+        <%- include('./partials/navUser.ejs')%> 
         <h2>Lista de Torneos</h1>
         <table class="table table-hover">
             <thead>
@@ -48,6 +49,7 @@
                 <% }) %>
             </tbody>
         </table>
+        <ul id="myPager"></ul>
         <a class="btn btn-success" href="/">Regresar</a>
     </body>
     <!--Pop up-->
@@ -59,7 +61,7 @@
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/vista_participante_lider/filtrate/status" method="POST">
+                    <form action="/participante/filtrate/status" method="POST">
                         <div>
                             <div>
                                 <input type="radio" id="filtro_estado"
@@ -96,7 +98,7 @@
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/vista_participante_lider/filtrate/signed_up" method="POST">
+                    <form action="/participante/filtrate/signed_up" method="POST">
                         <div>
                             <div>
                                 <input type="radio" id="filtro_inscrito"

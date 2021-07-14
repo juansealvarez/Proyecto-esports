@@ -1,0 +1,11 @@
+<%- include('./partials/navAdmin.ejs')%> 
+<body>
+    <h1>Pagina principal</h1>
+    <% if(login) {%> 
+        <h1>El usuario conectado es : <%=rol %></h1>
+        <a href="logout" class="a-logout">Logout</a>
+        <% }else { %> 
+            <h1><%= rol  %> </h1>
+            <a href="/" class="a-login">Ir al login</a>
+            <% } %> 
+</body>

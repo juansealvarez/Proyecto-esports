@@ -1,7 +1,7 @@
 const butModalAceptarOnClick = () => {
     const idInscrito = document.querySelector("#filtro_inscrito").value;
     if (idInscrito!=null){
-        const tns = await db.Torneos.findAll({
+        const tns = await db.Torneo.findAll({
             where: {
                 idInscrito : idInscrito
             }

@@ -40,7 +40,8 @@ module.exports = (sequelize, DataTypes) => {
     idInscrito: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Torneos',
+    modelName: 'Torneo',
+    freezeTableName: true
   });
   return Torneo;
 };

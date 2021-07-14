@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body>
+  <%- include('./partials/navUser.ejs')%> 
+      
+      <div class="container mt-4">          
+          <div class="card border-secondary">  
+                <div class="card-header">Editar Registro</div>
+                <div class="card-body">
+                    <form action="/admin/edit" method="POST">
+                         <input id="id" name="us_id" value="<%= usuario.id %>" hidden>
+                        <div class="mb-3">
+                          <label for="user" class="form-label">Usuario</label>
+                          <input type="text" class="form-control" name="us_user" tabindex="1" value="<%= usuario.user %>">                        
+                        </div>
+                        <div class="mb-3">
+                          <label for="correo" class="form-label">Correo</label>
+                          <input type="email" class="form-control" name="us_correo" tabindex="1" value="<%= usuario.correo  %>">                        
+                        </div>     
+                        <div class="mb-3">
+                         
+                          <label for="rol" class="form-label">Rol</label>
+                          <select id="rol" name="us_rol" class="form-select" tabindex="2">
+                            <option <%= usuario.rol=='Admin' ? "selected" : '' %> value="admin">Admin</option>
+                            <option <%= usuario.rol=='Organizador' ? "selected" : '' %> value="Organizador">Organizador</option>
+                            <option <%= usuario.rol=='Participante' ? "selected" : '' %> value="Participante">Participante</option>
+                                    
+                          </select>
+                        </div>
+                        <div class="mb-3">
+                          <label for="password" class="form-label">Contraseña</label>
+                          <input type="password" class="form-control"  name="us_password"  value="<%= usuario.password  %>">                        
+                        </div>                                                         
+                        <button type="submit" class="btn btn-primary" tabindex="5">Guardar</button>
+                        <a href="/admin" class="btn btn-secondary">Cancelar</a>
+                    </form>      
+                </div>
+            </div>     
+      </div>
+      
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>

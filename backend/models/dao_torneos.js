@@ -2,7 +2,7 @@ const db = require('../sequelize/models');
 
 const getTorneos = async () =>{
     //TODO: BD
-    const tns = await db.Torneos.findAll();
+    const tns = await db.Torneo.findAll();
     const torneos = [];
     for (let tn of tns){
         torneos.push({
@@ -30,7 +30,7 @@ const getTorneos = async () =>{
 };
 
 const getTorneo = async (tnId) => {
-    const tn = await db.Torneos.findOne({
+    const tn = await db.Torneo.findOne({
         where: {
             id: tnId
         }
@@ -40,7 +40,7 @@ const getTorneo = async (tnId) => {
 
 const getTorneosFiltrados = async () =>{
     //TODO: BD
-    const tns = await db.Torneos.findAll({
+    const tns = await db.Torneo.findAll({
         where: {
             idEstado : 2
         }
@@ -73,7 +73,7 @@ const getTorneosFiltrados = async () =>{
 
 const getTorneosFiltradosNombre = async (nomb) =>{
     //TODO: BD
-    const tns = await db.Torneos.findAll({
+    const tns = await db.Torneo.findAll({
         where: {
             nombre : nomb
         }
@@ -106,7 +106,7 @@ const getTorneosFiltradosNombre = async (nomb) =>{
 
 const getTorneosFiltradosEstado = async (est) =>{
     //TODO: BD
-    const tns = await db.Torneos.findAll({
+    const tns = await db.Torneo.findAll({
         where: {
             idEstado : est
         }
@@ -139,7 +139,7 @@ const getTorneosFiltradosEstado = async (est) =>{
 
 const getTorneosFiltradosInscrito = async (ins) =>{
     //TODO: BD
-    const tns = await db.Torneos.findAll({
+    const tns = await db.Torneo.findAll({
         where: {
             idInscrito : ins
         }
@@ -171,7 +171,7 @@ const getTorneosFiltradosInscrito = async (ins) =>{
 };
 
 const createTorneo = async (tn) => {
-    return await db.Torneos.create(tn);
+    return await db.Torneo.create(tn);
 };
 
 const updateTorneo = async (tn) =>{
@@ -196,7 +196,7 @@ const updateTorneo = async (tn) =>{
 };
 
 const deleteTorneo = async (idTn) =>{
-    await db.Torneos.destroy({
+    await db.Torneo.destroy({
         where: {
             id: idTn
         }

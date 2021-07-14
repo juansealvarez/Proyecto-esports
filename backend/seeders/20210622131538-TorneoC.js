@@ -1,0 +1,150 @@
+'use strict';
+
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    /**
+     * Add seed commands here.
+     *
+     * Example:
+     * await queryInterface.bulkInsert('People', [{
+     *   name: 'John Doe',
+     *   isBetaMember: false
+     * }], {});
+    */
+     await queryInterface.bulkInsert('TorneoCs',[
+      {
+       nombre: "Half Life",
+       FechInicio: "21/06/2021",
+       FechFin: "23/06/2021",
+       NumParticipantes: 10,
+       TipTorneo: "Todos contra todos",
+       NumPartidas: 20,
+       PuntGanada:100,
+       PuntPerdida:10,
+       PuntEmpatada: 50,
+       Estado:"En curso",
+       CantRegistrada: 6,
+       CantMaxEquipos: 12,
+       createdAt: new Date(),
+       updatedAt: new Date(),
+      },
+      {
+        nombre: "Torneo0",
+        FechInicio: "25/07/2021",
+        FechFin: "27/07/2021",
+        NumParticipantes: 5,
+        TipTorneo: "Todos contra todos",
+        NumPartidas: 9,
+        PuntGanada:100,
+        PuntPerdida:10,
+        PuntEmpatada: 50,
+        Estado:"Abierto",
+        CantRegistrada: 6,
+        CantMaxEquipos: 12,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+       },
+       {
+        nombre: "Torneo0",
+        FechInicio: "10/05/2021",
+        FechFin: "3/05/2021",
+        NumParticipantes: 20,
+        TipTorneo: "Todos contra todos",
+        NumPartidas: 5,
+        PuntGanada:100,
+        PuntPerdida:10,
+        PuntEmpatada: 50,
+        Estado:"Cerrado",
+        CantRegistrada: 6,
+        CantMaxEquipos: 12,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+       },
+       {
+        nombre: "Torneo1",
+        FechInicio: "05/08/2021",
+        FechFin: "10/08/2021",
+        NumParticipantes: 13,
+        TipTorneo: "Todos contra todos",
+        NumPartidas: 25,
+        PuntGanada:100,
+        PuntPerdida:10,
+        PuntEmpatada: 50,
+        Estado:"Cerrado",
+        CantRegistrada: 6,
+        CantMaxEquipos: 12,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+       },
+       {
+        nombre: "Torneo2",
+        FechInicio: "03/06/2021",
+        FechFin: "05/06/2021",
+        NumParticipantes: 8,
+        TipTorneo: "Todos contra todos",
+        NumPartidas: 10,
+        PuntGanada:100,
+        PuntPerdida:10,
+        PuntEmpatada: 50,
+        CantRegistrada: 6,
+        Estado:"Cerrado",
+        CantMaxEquipos: 12,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+       },
+       {
+        nombre: "Torneo3",
+        FechInicio: "09/06/2021",
+        FechFin: "15/06/2021",
+        NumParticipantes: 11,
+        TipTorneo: "Todos contra todos",
+        NumPartidas: 3,
+        PuntGanada:100,
+        PuntPerdida:10,
+        CantRegistrada: 6,
+        PuntEmpatada: 50,
+        Estado:"Cerrado",
+        CantMaxEquipos: 12,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+       },
+       {
+        nombre: "Torneo4",
+        FechInicio: "11/06/2021",
+        FechFin: "13/06/2021",
+        NumParticipantes: 7,
+        TipTorneo: "Todos contra todos",
+        NumPartidas: 16,
+        PuntGanada:100,
+        PuntPerdida:10,
+        CantRegistrada: 6,
+        PuntEmpatada: 50,
+        Estado:"Cerrado",
+        CantMaxEquipos: 12,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+       },
+       {
+        nombre: "Torneo5",
+        FechInicio: "24/06/2021",
+        FechFin: "27/06/2021",
+        NumParticipantes: 19,
+        TipTorneo: "Todos contra todos",
+        NumPartidas: 10,
+        PuntGanada:100,
+        PuntPerdida:10,
+        PuntEmpatada: 50,
+        CantRegistrada: 6,
+        Estado:"Abierto",
+        CantMaxEquipos: 12,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+       }
+ 
+    ],{});
+  },
+
+  down: async (queryInterface, Sequelize) => {
+
+  }
+};

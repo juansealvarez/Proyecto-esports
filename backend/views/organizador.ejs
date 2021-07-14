@@ -14,9 +14,11 @@
     </head>
 
     <body class="container">
-        <%- include('header') %>
+        <%- include('./partials/navOrganizador.ejs')%> 
         <h2>Lista de Torneos</h1>
-        <a href="/vista_organizador/add" id="but_agregar" class="btn btn-success mb-3" type="button">Crear nuevo torneo</a>
+        <a href="/organizador/add" id="but_agregar" class="btn btn-success mb-3" type="button">Crear nuevo torneo</a>
+        <a href="/equipo/add" id="but_agregar" class="btn btn-success mb-3" type="button">Crear nuevo equipo</a>
+        <a href="/equipo/delete" id="but_agregar" class="btn btn-success mb-3" type="button">Borrar un equipo</a>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="js/paginacion.js"></script>
         <table class="table table-hover">
@@ -43,9 +45,9 @@
                         <td><%= tn.fecha_fin %></td>
                         <td><%= tn.nro_participantes %></td>
                         <td>
-                            <a href="/vista_organizador/edit/<%= tn.id %>">Editar</a>
+                            <a href="/organizador/edit/<%= tn.id %>">Editar</a>
                             <a href="">Organizar</a>
-                            <a href="/vista_organizador/delete/<%= tn.id %>">Eliminar</a>
+                            <a href="/organizador/delete/<%= tn.id %>">Eliminar</a>
                         </td>
                     </tr>
                 <% }) %>
@@ -63,7 +65,7 @@
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/vista_organizador/filtrate/" method="POST">
+                    <form action="/organizador/filtrate/" method="POST">
                         <div>
                             <input placeholder="Escriba el nombre de torneo" name="filtro_nombre" type="text" class="form-control" />
                         </div>
@@ -72,8 +74,8 @@
                                 Aceptar
                             </button>
                         </div>
-                    </form><!--MVC  servidor genera codigo HTML, lo que estoy haciendo-->
-                </div><!--MVC  servidor genera codigo HTML-->
+                    </form>
+                </div>
             </div>
         </div>    
     </div>   
