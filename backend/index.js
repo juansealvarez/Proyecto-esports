@@ -11,7 +11,7 @@ const bcryptjs = require('bcryptjs');
 const mail = require('./helpers/mail');
 const path = require('path')//trabajar con el views en otra ruta
 const app = express(); //objeto app ejecutando express
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, 'assets'))); //configurar archivos estaticos
 
