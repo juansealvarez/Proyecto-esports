@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node backend"
+    "start": "node backend",
+    "migratedb": "npx sequelize db:migrate --config ./backend/sequelize/config/config.json --migrations-path ./backend/sequelize/migrations",
+    "seeddb": "npx sequelize db:seed:all --config ./backend/sequelize/config/config.json --seeders-path ./backend/sequelize/seeders"
   },
   "author": "",
   "license": "ISC",
