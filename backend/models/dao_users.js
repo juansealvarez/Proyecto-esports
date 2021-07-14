@@ -1,5 +1,6 @@
 const db = require('../sequelize/models');
 
+
 const getUsers = async () =>{
     //TODO: BD
     const urs = await db.Usuario.findAll();
@@ -30,6 +31,8 @@ const getUsuario = async (usId) => {
 };
 
 const getConfirmacion = async (usUs, usPass, usRol) => {
+    //desencriptarlo
+    
     const us = await db.Usuario.findOne({
         where: {
             user: usUs,

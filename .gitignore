@@ -106,3 +106,5 @@ media/
 
 
 node_modules
+drops.sql
+drops_cloud.sql

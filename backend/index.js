@@ -7,7 +7,7 @@ const daoTipos = require('./models/dao_tipos');
 const daoEquipos = require('./models/dao_equipos');
 const daoEstados = require('./models/dao_estados');
 const daoInscrito = require('./models/dao_inscrito');
-const bcryptjs = require('bcryptjs');
+const bcryptjs = require('bcryptjs');//encriptar
 const mail = require('./helpers/mail');
 const path = require('path')//trabajar con el views en otra ruta
 const app = express(); //objeto app ejecutando express
@@ -112,12 +112,20 @@ app.post('/login', async (req, res) => {
     //Valido si hay un usario en la sesion
     const usUs = req.body.user
     const usPass = req.body.password
+    //recibo contra
     const usRol = req.body.rol
-    //let passwordH = await bcryptjs.hash(usPass, 8);
-    // let confirmpass=await bcryptjs.compare(password,passwordH)
-    const confirmacion = await getConfirmacion(usUs, usPass, usRol)
+    //getPassword(password)->compare
+    //encriptamos
+    //cambia
+    //comparacion
+    //traer la contra del usUs -> db 
+    //let compare =  await bcryptjs.compare(conrtraseñaquetraje,encriptado)
+    //if(compare){pasa a lo que hace el login }else{res.redirect('/login')}
+   
+    
+    const confirmacion = await getConfirmacion(usUs, hash, usRol)
     console.log(confirmacion)
-    if(confirmacion == true){
+    if(confirmacion == true) {
         req.session.loggedin = true;
         req.session.rol = usRol;
         switch (usRol) {
@@ -137,24 +145,24 @@ app.post('/login', async (req, res) => {
 });
 
 app.get('/registro', async (req,res) => {
-    res.render('create')
+    res.render('registro')
 })
 
 app.post('/registro', async (req, res) => {
-    const password= req.body.password;
-    //let passwordHash= await bcryptjs.hash(password,8);
+    const usPass= req.body.password;
+    const user = req.body.user
+    const hash = await bcryptjs.hash(usPass,10)
     const usr = {
-        user: req.body.user,
+        user: user,
         correo: req.body.correo,
-        password:passwordHash,
+        password: hash,
         rol: req.body.rol,
         equipo: parseInt(req.body.equipo)
         
     };
-    const tnGuardado = await createUsuario(usr);
+    const eqGuardado = await createUsuario(usr);
     mail(usr.correo,usr.user,usr.password)
     console.log(usr);
-    res.redirect('/');
 });
 app.get('/recuperar',(req,res)=>{
     res.render('recuperar');
@@ -365,19 +373,18 @@ app.get('/admin/add', async (req, res) => {
 });
 app.post('/admin/add', async (req, res) => {
     const password= req.body.password;
-    //let passwordHash= await bcryptjs.hash(password,8);
     const usr = {
         user: req.body.user,
         correo: req.body.correo,
-        password: req.body.password,
+        password: password,
         rol: req.body.rol,
         equipo: parseInt(req.body.equipo)
         
     };
-    const tnGuardado = await createUsuario(usr);
+    const eqGuardado = await createUsuario(usr);
     mail(usr.correo,usr.user,usr.password)
     console.log(usr);
-    res.redirect('/admin/add');
+    res.redirect('/admin');
 });
 
 app.get('/principal', async (req, res) => {
