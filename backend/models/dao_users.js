@@ -47,6 +47,28 @@ const getConfirmacion = async (usUs, usPass, usRol) => {
     }
     
 };
+
+const getUsuariosFiltradosRol = async (rol) =>{
+    //TODO: BD
+    const urs = await db.Usuario.findAll({
+        where: {
+            rol : rol
+        }
+    });
+    const usuarios = [];
+    for (let us of urs){
+        usuarios.push({
+            id : us.id,
+            user: us.user,
+            rol: us.rol,
+            correo: us.correo,
+            password: us.password
+        })
+    };
+    console.log(usuarios);
+    return usuarios;
+};
+
 const getExiste = async (usCorreo, usUser) => {
    
     const us = await db.Usuario.findOne({
@@ -96,5 +118,6 @@ module.exports = {
     updateUsuario: updateUsuario,
     deleteUsuario: deleteUsuario,
     getConfirmacion: getConfirmacion,
-    getExiste: getExiste
+    getExiste: getExiste,
+    getUsuariosFiltradosRol: getUsuariosFiltradosRol
 };

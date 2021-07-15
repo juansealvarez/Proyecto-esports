@@ -20,6 +20,7 @@ const daoEquipos = {
         console.log(equipos);
         return equipos;
     },
+    
     getEquipo : async (id) => {
         const equipo = await db.Equipo.findOne({
             where : {

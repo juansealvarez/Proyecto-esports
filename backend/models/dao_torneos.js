@@ -213,5 +213,5 @@ module.exports = {
     getTorneosFiltrados : getTorneosFiltrados,
     getTorneosFiltradosNombre : getTorneosFiltradosNombre,
     getTorneosFiltradosInscrito : getTorneosFiltradosInscrito,
-    getTorneosFiltradosEstado : getTorneosFiltradosEstado
+    getTorneosFiltradosEstado : getTorneosFiltradosEstado,
 };

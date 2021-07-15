@@ -1,8 +1,10 @@
 const express = require('express') //importar express
-const session = require('express-session')
+var session = require('express-session')
+const alert = require('alert');
+const swal = require('sweetalert')
 const bodyParser = require('body-parser')
-const { getTorneos, createTorneo, deleteTorneo, getTorneo, updateTorneo, getTorneosFiltrados, getTorneosFiltradosNombre, getTorneosFiltradosEstado, getTorneosFiltradosInscrito } = require('./models/dao_torneos');
-const { getUsers, getUsuario, updateUsuario, createUsuario, deleteUsuario, getConfirmacion, getExiste} = require('./models/dao_users');
+const { getTorneos, createTorneo, deleteTorneo, getTorneo, updateTorneo, getTorneosFiltrados, getTorneosFiltradosNombre, getTorneosFiltradosEstado, getTorneosFiltradosInscrito} = require('./models/dao_torneos');
+const { getUsers, getUsuario, updateUsuario, createUsuario, deleteUsuario, getConfirmacion, getExiste,getUsuariosFiltradosRol} = require('./models/dao_users');
 const daoTipos = require('./models/dao_tipos');
 const daoEquipos = require('./models/dao_equipos');
 const daoEstados = require('./models/dao_estados');
@@ -75,6 +77,22 @@ app.post('/participante/filtrate/status', async (req, res) => {
 
 });
 
+app.post('/admin/filtrate/', async (req, res) => {
+    //obtener el nombre del campo de texto
+    const rol = req.body.rol
+    console.log(rol)
+    if (rol == "admin" || rol=="Participante" || rol=="Organizador") {//revisar si la casilla esta marcada
+        const listaUsuarios = await getUsuariosFiltradosRol(rol);
+        res.render("index_filtro_rol", {
+            usuarios: listaUsuarios
+        })
+        console.log(usuarios);
+    } else {// si no
+        res.redirect('/admin');
+    }
+
+});
+
 app.post('/participante/filtrate/signed_up', async (req, res) => {
     //obtener el nombre del campo de texto
     const ins = req.body.inscrito
@@ -142,6 +160,7 @@ app.post('/login', async (req, res) => {
                 break;
         }
     }else{
+        alert('Usuario, Contraseña o Rol incorrectos.');
         res.redirect('/');
     }
 });
@@ -238,6 +257,7 @@ app.post('/equipo/add', async (req, res) => {
     const eqGuardado = await daoEquipos.createEquipo(eq);
     console.log(eqGuardado);
     res.redirect('/organizador');
+    
 });
 
 app.get('/equipo/delete', async (req, res) => {
@@ -385,10 +405,17 @@ app.post('/admin/add', async (req, res) => {
         equipo: parseInt(req.body.equipo)
         
     };
-    const eqGuardado = await createUsuario(usr);
-    mail(usr.correo,usr.user,usr.password)
-    console.log(usr);
-    res.redirect('/admin');
+    if(existe!=true){
+        const eqGuardado = await createUsuario(usr);
+        mail(usr.correo,usr.user,usr.password)
+        console.log(usr);
+        res.redirect('/admin');
+        console.log("usuario no existe")
+    }else{
+        alert('El usuario o correo existe')
+        console.log('Usuario existe')
+    }
+    
 });
 
 app.get('/principal', async (req, res) => {
@@ -436,17 +463,11 @@ app.get('/login',(req,res)=>{
     }
 })
 app.get('/logout', async (req, res) => {
-    if (req.session.loggedin) {
+    req.session.destroy();
         res.render('login', {
             login: true,
             rol: req.session.rol
         });
-    } else {
-        res.render('principal', {
-            login: false,
-            rol: 'Debe iniciar sesion'
-        })   
-    }
     
 });
 
@@ -494,9 +515,9 @@ app.post('/admin/edit', async (req, res) => {
         res.redirect('/admin');
         console.log("usuario no existe")
     }else{
+        alert('El usuario o correo existe')
         console.log('Usuario existe')
     }
-   
 });
 
 
