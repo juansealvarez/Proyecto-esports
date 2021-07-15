@@ -47,6 +47,23 @@ const getConfirmacion = async (usUs, usPass, usRol) => {
     }
     
 };
+const getExiste = async (usCorreo, usUser) => {
+   
+    const us = await db.Usuario.findOne({
+        where: {
+            correo: usCorreo,
+            user : usUser,
+        }
+    });
+    if (us!=null){
+        return true
+    }else{
+        
+        return false;
+    }
+    
+};
+
 
 const createUsuario = async (us) => {
     return await db.Usuario.create(us);
@@ -79,4 +96,5 @@ module.exports = {
     updateUsuario: updateUsuario,
     deleteUsuario: deleteUsuario,
     getConfirmacion: getConfirmacion,
+    getExiste: getExiste
 };

@@ -2,7 +2,7 @@ const express = require('express') //importar express
 const session = require('express-session')
 const bodyParser = require('body-parser')
 const { getTorneos, createTorneo, deleteTorneo, getTorneo, updateTorneo, getTorneosFiltrados, getTorneosFiltradosNombre, getTorneosFiltradosEstado, getTorneosFiltradosInscrito } = require('./models/dao_torneos');
-const { getUsers, getUsuario, updateUsuario, createUsuario, deleteUsuario, getConfirmacion} = require('./models/dao_users');
+const { getUsers, getUsuario, updateUsuario, createUsuario, deleteUsuario, getConfirmacion, getExiste} = require('./models/dao_users');
 const daoTipos = require('./models/dao_tipos');
 const daoEquipos = require('./models/dao_equipos');
 const daoEstados = require('./models/dao_estados');
@@ -11,6 +11,7 @@ const bcryptjs = require('bcryptjs');//encriptar
 const mail = require('./helpers/mail');
 const path = require('path')//trabajar con el views en otra ruta
 const app = express(); //objeto app ejecutando express
+
 const PORT = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, 'assets'))); //configurar archivos estaticos
@@ -121,9 +122,10 @@ app.post('/login', async (req, res) => {
     //traer la contra del usUs -> db 
     //let compare =  await bcryptjs.compare(conrtraseñaquetraje,encriptado)
     //if(compare){pasa a lo que hace el login }else{res.redirect('/login')}
+
    
     
-    const confirmacion = await getConfirmacion(usUs, hash, usRol)
+    const confirmacion = await getConfirmacion(usUs, usPass, usRol)
     console.log(confirmacion)
     if(confirmacion == true) {
         req.session.loggedin = true;
@@ -151,7 +153,7 @@ app.get('/registro', async (req,res) => {
 app.post('/registro', async (req, res) => {
     const usPass= req.body.password;
     const user = req.body.user
-    const hash = await bcryptjs.hash(usPass,10)
+    const hash = await bcryptjs.hash(usPass,5)
     const usr = {
         user: user,
         correo: req.body.correo,
@@ -163,6 +165,7 @@ app.post('/registro', async (req, res) => {
     const eqGuardado = await createUsuario(usr);
     mail(usr.correo,usr.user,usr.password)
     console.log(usr);
+    res.redirect("/")
 });
 app.get('/recuperar',(req,res)=>{
     res.render('recuperar');
@@ -294,6 +297,7 @@ app.post('/organizador/edit', async (req, res) => {
         idEstado: parseInt(req.body.tn_idEstado),
         idInscrito: parseInt(req.body.tn_idInscrito)
     };
+    
     await updateTorneo(tn);
     res.redirect('/organizador');
 });
@@ -484,8 +488,15 @@ app.post('/admin/edit', async (req, res) => {
         rol: req.body.us_rol,
         password: req.body.us_password
     };
-    await updateUsuario(us);
-    res.redirect('/admin');
+    const existe = await getExiste(us.correo,us.user);
+    if(existe!=true){
+        await updateUsuario(us);
+        res.redirect('/admin');
+        console.log("usuario no existe")
+    }else{
+        console.log('Usuario existe')
+    }
+   
 });
 
 
